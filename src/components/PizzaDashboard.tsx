@@ -25,7 +25,11 @@ const PizzaDashboard = ({
     return (
         <Grid>
             <Grid.Column width="10">
-                <PizzaList pizzas={pizzas} selectEditPizza={selectEditPizza} />
+                <PizzaList
+                    pizzas={pizzas}
+                    selectEditPizza={selectEditPizza}
+                    openEditForm={openEditForm}
+                />
             </Grid.Column>
             <Grid.Column width="6">
                 {editMode && (

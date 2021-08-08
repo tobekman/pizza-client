@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import './styles.css'
 import axios from 'axios'
 import { Container } from 'semantic-ui-react'
@@ -38,7 +38,7 @@ function App() {
 
     return (
         <div>
-            <Navbar />
+            <Navbar openEditForm={handleFormOpen} />
             <Container style={{ marginTop: '7em' }}>
                 <PizzaDashboard
                     pizzas={pizzas}

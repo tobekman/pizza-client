@@ -11,17 +11,17 @@ const PizzaForm = ({ pizza, closeEditForm }: Props) => {
         <Segment clearing>
             <Form>
                 {pizza ? (
-                    <Form.Input content={pizza.name} />
+                    <Form.Input placeholder={pizza.name} />
                 ) : (
                     <Form.Input placeholder="Namn" />
                 )}
                 {pizza ? (
-                    <Form.TextArea content={pizza.toppings} />
+                    <Form.TextArea placeholder={pizza.toppings} />
                 ) : (
                     <Form.TextArea placeholder="Ingredienser" />
                 )}
                 {pizza ? (
-                    <Form.Input content={pizza.price} />
+                    <Form.Input placeholder={pizza.price} />
                 ) : (
                     <Form.Input placeholder="Pris" />
                 )}

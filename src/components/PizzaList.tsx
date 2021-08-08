@@ -1,12 +1,13 @@
-import { Button, Header, Item, List, Segment } from 'semantic-ui-react'
+import { Button, Item, Segment } from 'semantic-ui-react'
 import { Pizza } from '../app/models/Pizza'
 
 interface Props {
     pizzas: Pizza[]
     selectEditPizza: (id: number) => void
+    openEditForm: (id: number) => void
 }
 
-const PizzaList = ({ pizzas, selectEditPizza }: Props) => {
+const PizzaList = ({ pizzas, selectEditPizza, openEditForm }: Props) => {
     return (
         <Segment>
             <Item.Group divided>
@@ -26,7 +27,7 @@ const PizzaList = ({ pizzas, selectEditPizza }: Props) => {
                                     floated="right"
                                     content="Ändra"
                                     color="blue"
-                                    onClick={() => selectEditPizza(pizza.id)}
+                                    onClick={() => openEditForm(pizza.id)}
                                 />
                             </Item.Extra>
                         </Item.Content>
