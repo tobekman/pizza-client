@@ -36,20 +36,33 @@ function App() {
         setEditMode(false)
     }
 
+    function handleCreateOrEditPizza(pizza: Pizza) {
+        pizza.id
+            ? setPizzas([...pizzas.filter((p) => p.id !== pizza.id), pizza])
+            : setPizzas([...pizzas, pizza])
+        setEditMode(false)
+        setEditPizza(pizza)
+    }
+
     return (
         <div>
             <Navbar openEditForm={handleFormOpen} />
-            <Container style={{ marginTop: '7em' }}>
-                <PizzaDashboard
-                    pizzas={pizzas}
-                    selectedPizza={editPizza}
-                    selectEditPizza={handleEditPizza}
-                    cancelEditPizza={cancelEditPizza}
-                    editMode={editMode}
-                    openEditForm={handleFormOpen}
-                    closeEditForm={handleFormClose}
-                />
-            </Container>
+            {pizzas.length > 0 ? (
+                <Container style={{ marginTop: '7em' }}>
+                    <PizzaDashboard
+                        pizzas={pizzas}
+                        selectedPizza={editPizza}
+                        selectEditPizza={handleEditPizza}
+                        cancelEditPizza={cancelEditPizza}
+                        editMode={editMode}
+                        openEditForm={handleFormOpen}
+                        closeEditForm={handleFormClose}
+                        createOrEdit={handleCreateOrEditPizza}
+                    />
+                </Container>
+            ) : (
+                <div></div>
+            )}
         </div>
     )
 }

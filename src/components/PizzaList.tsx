@@ -4,7 +4,7 @@ import { Pizza } from '../app/models/Pizza'
 interface Props {
     pizzas: Pizza[]
     selectEditPizza: (id: number) => void
-    openEditForm: (id: number) => void
+    openEditForm: (id?: number) => void
 }
 
 const PizzaList = ({ pizzas, selectEditPizza, openEditForm }: Props) => {

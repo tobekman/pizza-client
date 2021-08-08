@@ -9,8 +9,9 @@ interface Props {
     selectEditPizza: (id: number) => void
     cancelEditPizza: () => void
     editMode: boolean
-    openEditForm: (id: number) => void
+    openEditForm: (id?: number) => void
     closeEditForm: () => void
+    createOrEdit: (pizza: Pizza) => void
 }
 
 const PizzaDashboard = ({
@@ -21,6 +22,7 @@ const PizzaDashboard = ({
     editMode,
     openEditForm,
     closeEditForm,
+    createOrEdit,
 }: Props) => {
     return (
         <Grid>
@@ -36,6 +38,8 @@ const PizzaDashboard = ({
                     <PizzaForm
                         closeEditForm={closeEditForm}
                         pizza={selectedPizza}
+                        createOrEdit={createOrEdit}
+                        pizzas={pizzas}
                     />
                 )}
             </Grid.Column>

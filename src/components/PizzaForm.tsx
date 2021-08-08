@@ -1,31 +1,76 @@
+import { ChangeEvent, useState } from 'react'
 import { Button, Form, Segment } from 'semantic-ui-react'
 import { Pizza } from '../app/models/Pizza'
 
 interface Props {
     pizza: Pizza | undefined
     closeEditForm: () => void
+    createOrEdit: (pizza: Pizza) => void
+    pizzas: Pizza[]
 }
 
-const PizzaForm = ({ pizza, closeEditForm }: Props) => {
+const PizzaForm = ({
+    pizza: selectedPizza,
+    closeEditForm,
+    createOrEdit,
+    pizzas,
+}: Props) => {
+    const initialState = selectedPizza ?? {
+        id: 0,
+        name: '',
+        toppings: '',
+        price: 0,
+    }
+
+    const [pizza, setPizza] = useState(initialState)
+
+    function handleSubmit() {
+        if (pizza.id === 0) {
+            pizza.id = createNewId()
+        }
+
+        console.log(pizza)
+        createOrEdit(pizza)
+    }
+
+    function handleInputChange(
+        event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) {
+        const { name, value } = event.target
+        setPizza({ ...pizza, [name]: value })
+    }
+
+    function createNewId() {
+        let ids: number[] = []
+        pizzas.forEach((p) => ids.push(p.id))
+        let max = Math.max(...ids)
+        console.log(max)
+        return max++
+    }
+
+    
+
     return (
         <Segment clearing>
-            <Form>
-                {pizza ? (
-                    <Form.Input placeholder={pizza.name} />
-                ) : (
-                    <Form.Input placeholder="Namn" />
-                )}
-                {pizza ? (
-                    <Form.TextArea placeholder={pizza.toppings} />
-                ) : (
-                    <Form.TextArea placeholder="Ingredienser" />
-                )}
-                {pizza ? (
-                    <Form.Input placeholder={pizza.price} />
-                ) : (
-                    <Form.Input placeholder="Pris" />
-                )}
-
+            <Form onSubmit={handleSubmit} autoComplete="off">
+                <Form.Input
+                    placeholder="Namn"
+                    value={pizza.name}
+                    name="name"
+                    onChange={handleInputChange}
+                />
+                <Form.TextArea
+                    placeholder="Toppings"
+                    value={pizza.toppings}
+                    name="toppings"
+                    onChange={handleInputChange}
+                />
+                <Form.Input
+                    placeholder="Pris"
+                    value={pizza.price}
+                    name="price"
+                    onChange={handleInputChange}
+                />
                 <Button
                     floated="right"
                     positive
