@@ -8,6 +8,8 @@ import PizzaDashboard from '../../components/PizzaDashboard'
 
 function App() {
     const [pizzas, setPizzas] = useState<Pizza[]>([])
+    const [editPizza, setEditPizza] = useState<Pizza | undefined>(undefined)
+    const [editMode, setEditMode] = useState(false)
 
     useEffect(() => {
         axios
@@ -17,11 +19,36 @@ function App() {
             })
     }, [])
 
+    function handleEditPizza(id: number) {
+        setEditPizza(pizzas.find((pizza) => pizza.id === id))
+    }
+
+    function cancelEditPizza() {
+        setEditPizza(undefined)
+    }
+
+    function handleFormOpen(id?: number) {
+        id ? handleEditPizza(id) : cancelEditPizza()
+        setEditMode(true)
+    }
+
+    function handleFormClose() {
+        setEditMode(false)
+    }
+
     return (
         <div>
             <Navbar />
             <Container style={{ marginTop: '7em' }}>
-                <PizzaDashboard pizzas={pizzas} />
+                <PizzaDashboard
+                    pizzas={pizzas}
+                    selectedPizza={editPizza}
+                    selectEditPizza={handleEditPizza}
+                    cancelEditPizza={cancelEditPizza}
+                    editMode={editMode}
+                    openEditForm={handleFormOpen}
+                    closeEditForm={handleFormClose}
+                />
             </Container>
         </div>
     )

@@ -5,16 +5,35 @@ import PizzaList from './PizzaList'
 
 interface Props {
     pizzas: Pizza[]
+    selectedPizza: Pizza | undefined
+    selectEditPizza: (id: number) => void
+    cancelEditPizza: () => void
+    editMode: boolean
+    openEditForm: (id: number) => void
+    closeEditForm: () => void
 }
 
-const PizzaDashboard = ({ pizzas }: Props) => {
+const PizzaDashboard = ({
+    pizzas,
+    selectedPizza,
+    selectEditPizza,
+    cancelEditPizza,
+    editMode,
+    openEditForm,
+    closeEditForm,
+}: Props) => {
     return (
         <Grid>
             <Grid.Column width="10">
-                <PizzaList pizzas={pizzas} />
+                <PizzaList pizzas={pizzas} selectEditPizza={selectEditPizza} />
             </Grid.Column>
             <Grid.Column width="6">
-                <PizzaForm />
+                {editMode && (
+                    <PizzaForm
+                        closeEditForm={closeEditForm}
+                        pizza={selectedPizza}
+                    />
+                )}
             </Grid.Column>
         </Grid>
     )

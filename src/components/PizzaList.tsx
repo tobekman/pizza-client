@@ -3,9 +3,10 @@ import { Pizza } from '../app/models/Pizza'
 
 interface Props {
     pizzas: Pizza[]
+    selectEditPizza: (id: number) => void
 }
 
-const PizzaList = ({ pizzas }: Props) => {
+const PizzaList = ({ pizzas, selectEditPizza }: Props) => {
     return (
         <Segment>
             <Item.Group divided>
@@ -25,6 +26,7 @@ const PizzaList = ({ pizzas }: Props) => {
                                     floated="right"
                                     content="Ändra"
                                     color="blue"
+                                    onClick={() => selectEditPizza(pizza.id)}
                                 />
                             </Item.Extra>
                         </Item.Content>

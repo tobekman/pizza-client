@@ -1,12 +1,31 @@
 import { Button, Form, Segment } from 'semantic-ui-react'
+import { Pizza } from '../app/models/Pizza'
 
-const PizzaForm = () => {
+interface Props {
+    pizza: Pizza | undefined
+    closeEditForm: () => void
+}
+
+const PizzaForm = ({ pizza, closeEditForm }: Props) => {
     return (
         <Segment clearing>
             <Form>
-                <Form.Input placeholder="Namn" />
-                <Form.TextArea placeholder="Ingredienser" />
-                <Form.Input placeholder="Pris" />
+                {pizza ? (
+                    <Form.Input content={pizza.name} />
+                ) : (
+                    <Form.Input placeholder="Namn" />
+                )}
+                {pizza ? (
+                    <Form.TextArea content={pizza.toppings} />
+                ) : (
+                    <Form.TextArea placeholder="Ingredienser" />
+                )}
+                {pizza ? (
+                    <Form.Input content={pizza.price} />
+                ) : (
+                    <Form.Input placeholder="Pris" />
+                )}
+
                 <Button
                     floated="right"
                     positive
@@ -18,6 +37,7 @@ const PizzaForm = () => {
                     positive
                     type="button"
                     content="Avbryt"
+                    onClick={() => closeEditForm()}
                 />
             </Form>
         </Segment>
