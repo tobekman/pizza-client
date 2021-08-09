@@ -12,6 +12,7 @@ interface Props {
     openEditForm: (id?: number) => void
     closeEditForm: () => void
     createOrEdit: (pizza: Pizza) => void
+    deletePizza: (id: number) => void
 }
 
 const PizzaDashboard = ({
@@ -23,6 +24,7 @@ const PizzaDashboard = ({
     openEditForm,
     closeEditForm,
     createOrEdit,
+    deletePizza
 }: Props) => {
     return (
         <Grid>
@@ -31,6 +33,7 @@ const PizzaDashboard = ({
                     pizzas={pizzas}
                     selectEditPizza={selectEditPizza}
                     openEditForm={openEditForm}
+                    deletePizza={deletePizza}
                 />
             </Grid.Column>
             <Grid.Column width="6">

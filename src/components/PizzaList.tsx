@@ -5,9 +5,15 @@ interface Props {
     pizzas: Pizza[]
     selectEditPizza: (id: number) => void
     openEditForm: (id?: number) => void
+    deletePizza: (id: number) => void
 }
 
-const PizzaList = ({ pizzas, selectEditPizza, openEditForm }: Props) => {
+const PizzaList = ({
+    pizzas,
+    selectEditPizza,
+    openEditForm,
+    deletePizza,
+}: Props) => {
     return (
         <Segment>
             <Item.Group divided>
@@ -22,6 +28,7 @@ const PizzaList = ({ pizzas, selectEditPizza, openEditForm }: Props) => {
                                     floated="right"
                                     content="Ta bort"
                                     color="red"
+                                    onClick={() => deletePizza(pizza.id)}
                                 />
                                 <Button
                                     floated="right"

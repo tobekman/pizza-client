@@ -43,6 +43,10 @@ function App() {
         setEditMode(false)
         setEditPizza(pizza)
     }
+    
+    function handleDeletePizza(id: number) {
+        setPizzas([...pizzas.filter(p => p.id !== id)])
+    }
 
     return (
         <div>
@@ -58,6 +62,7 @@ function App() {
                         openEditForm={handleFormOpen}
                         closeEditForm={handleFormClose}
                         createOrEdit={handleCreateOrEditPizza}
+                        deletePizza={handleDeletePizza}
                     />
                 </Container>
             ) : (
