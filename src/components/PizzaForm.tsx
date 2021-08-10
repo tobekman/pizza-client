@@ -28,8 +28,6 @@ const PizzaForm = ({
         if (pizza.id === 0) {
             pizza.id = createNewId()
         }
-
-        console.log(pizza)
         createOrEdit(pizza)
     }
 
@@ -44,11 +42,8 @@ const PizzaForm = ({
         let ids: number[] = []
         pizzas.forEach((p) => ids.push(p.id))
         let max = Math.max(...ids)
-        console.log(max)
-        return max++
+        return max + 1
     }
-
-    
 
     return (
         <Segment clearing>

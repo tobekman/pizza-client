@@ -10,3 +10,9 @@ body {
         #c2d2e9 89%
     );
 }
+
+.edit-form {
+    position: fixed;
+    top: 12;
+    width: 25em;
+}

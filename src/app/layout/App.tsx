@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 import './styles.css'
-import axios from 'axios'
 import { Container } from 'semantic-ui-react'
 import { Pizza } from '../models/Pizza'
 import Navbar from './Navbar'
 import PizzaDashboard from '../../components/PizzaDashboard'
+import agent from '../api/agent'
 
 function App() {
     const [pizzas, setPizzas] = useState<Pizza[]>([])
@@ -12,11 +12,9 @@ function App() {
     const [editMode, setEditMode] = useState(false)
 
     useEffect(() => {
-        axios
-            .get<Pizza[]>('http://localhost:8080/api/1.0/pizzas')
-            .then((response) => {
-                setPizzas(response.data)
-            })
+        agent.Pizzas.list().then((response) => {
+            setPizzas(response)
+        })
     }, [])
 
     function handleEditPizza(id: number) {
@@ -37,15 +35,24 @@ function App() {
     }
 
     function handleCreateOrEditPizza(pizza: Pizza) {
-        pizza.id
-            ? setPizzas([...pizzas.filter((p) => p.id !== pizza.id), pizza])
-            : setPizzas([...pizzas, pizza])
-        setEditMode(false)
-        setEditPizza(pizza)
+        if (pizza.id) {
+            agent.Pizzas.update(pizza).then(() => {
+                setPizzas([...pizzas.filter((p) => p.id !== pizza.id), pizza])
+                setEditMode(false)
+                setEditPizza(pizza)
+            })
+        } else {
+            agent.Pizzas.create(pizza).then(() => {
+                setPizzas([...pizzas, pizza])
+                setEditMode(false)
+                setEditPizza(pizza)
+            })
+        }
     }
-    
+
     function handleDeletePizza(id: number) {
-        setPizzas([...pizzas.filter(p => p.id !== id)])
+        agent.Pizzas.delete(id)
+        setPizzas([...pizzas.filter((p) => p.id !== id)])
     }
 
     return (

@@ -24,7 +24,7 @@ const PizzaDashboard = ({
     openEditForm,
     closeEditForm,
     createOrEdit,
-    deletePizza
+    deletePizza,
 }: Props) => {
     return (
         <Grid>
@@ -38,12 +38,14 @@ const PizzaDashboard = ({
             </Grid.Column>
             <Grid.Column width="6">
                 {editMode && (
-                    <PizzaForm
-                        closeEditForm={closeEditForm}
-                        pizza={selectedPizza}
-                        createOrEdit={createOrEdit}
-                        pizzas={pizzas}
-                    />
+                    <div className="edit-form">
+                        <PizzaForm
+                            closeEditForm={closeEditForm}
+                            pizza={selectedPizza}
+                            createOrEdit={createOrEdit}
+                            pizzas={pizzas}
+                        />
+                    </div>
                 )}
             </Grid.Column>
         </Grid>
